@@ -1,19 +1,11 @@
 // This makes "who is logged in" available to the whole app,
 // so any page/component can check auth status without prop-drilling.
 
-import { createContext, useContext, useState, type ReactNode } from "react";
+import { useState, type ReactNode } from "react";
+import { AuthContext } from "./authContext";
 import { registerRequest, loginRequest, type AuthUser } from "../api/auth";
 
 
-interface AuthContextType {
-  user: AuthUser | null;
-  token: string | null;
-  login: (email: string, password: string) => Promise<void>;
-  register: (email: string, password: string) => Promise<void>;
-  logout: () => void;
-}
-
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   // We persist the token in localStorage so refreshing the page
@@ -52,12 +44,4 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       {children}
     </AuthContext.Provider>
   );
-}
-
-export function useAuth() {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error("useAuth must be used inside an AuthProvider.");
-  }
-  return context;
 }

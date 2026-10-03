@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../context/useAuth";
 import { startDungeonRequest, dungeonActionRequest } from "../api/dungeon";
 
 interface CombatState {
@@ -11,6 +11,21 @@ interface CombatState {
   monsterHp: number;
   monsterMaxHp: number;
   log: string[];
+}
+
+interface HealthBarProps {
+  current: number;
+  max: number;
+  color: string;
+}
+
+function HealthBar({ current, max, color }: HealthBarProps) {
+  const pct = max > 0 ? Math.max(0, Math.min(100, (current / max) * 100)) : 0;
+  return (
+    <div className="w-full bg-slate-800 rounded h-3 overflow-hidden">
+      <div className={`${color} h-full transition-all`} style={{ width: `${pct}%` }} />
+    </div>
+  );
 }
 
 const initialState: CombatState = {
@@ -73,15 +88,6 @@ export default function Dungeon() {
     } finally {
       setLoading(false);
     }
-  }
-
-  function HealthBar({ current, max, color }: { current: number; max: number; color: string }) {
-    const pct = max > 0 ? Math.max(0, Math.min(100, (current / max) * 100)) : 0;
-    return (
-      <div className="w-full bg-slate-800 rounded h-3 overflow-hidden">
-        <div className={`${color} h-full transition-all`} style={{ width: `${pct}%` }} />
-      </div>
-    );
   }
 
   const fightOver = combat.status === "WON" || combat.status === "LOST" || combat.status === "FLED";
