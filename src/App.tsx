@@ -3,7 +3,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Dungeon from "./pages/Dungeon";
-import { useAuth } from "./context/AuthContext";
+import { useAuth } from "./context/useAuth";
 import type { ReactNode } from "react";
 
 // Simple guard: if there's no logged-in user, bounce back to /login.
