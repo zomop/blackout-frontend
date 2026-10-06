@@ -1,7 +1,7 @@
 // This file is the ONLY place that talks directly to the backend for auth.
 // Pages/components call these functions instead of using fetch() themselves.
 
-const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:4000/api/v1";
+import { API_BASE, handleResponse } from "./client";
 
 export interface AuthUser {
   id: string;
@@ -13,19 +13,6 @@ export interface AuthResponse {
   status: string;
   token: string;
   user: AuthUser;
-}
-
-export interface ApiError {
-  status: string;
-  message: string;
-}
-
-async function handleResponse<T>(res: Response): Promise<T> {
-  const data = await res.json();
-  if (!res.ok) {
-    throw new Error(data.message || "Something went wrong.");
-  }
-  return data;
 }
 
 export async function registerRequest(email: string, password: string) {

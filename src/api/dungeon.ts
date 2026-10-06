@@ -1,7 +1,7 @@
 // Talks to the backend dungeon endpoints. Needs the auth token on every call
 // since these routes are protected by requireAuth on the backend.
 
-const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:4000/api/v1";
+import { API_BASE, handleResponse } from "./client";
 
 export interface CombatResult {
   status: "IN_PROGRESS" | "WON" | "LOST" | "FLED";
@@ -16,14 +16,6 @@ export interface StartResult {
   player: { hp: number; maxHp: number };
   monster: { name: string; hp: number; maxHp: number };
   log: string[];
-}
-
-async function handleResponse<T>(res: Response): Promise<T> {
-  const data = await res.json();
-  if (!res.ok) {
-    throw new Error(data.message || "Something went wrong.");
-  }
-  return data;
 }
 
 export async function startDungeonRequest(token: string) {
