@@ -23,7 +23,14 @@ function HealthBar({ current, max, color }: HealthBarProps) {
   const pct = max > 0 ? Math.max(0, Math.min(100, (current / max) * 100)) : 0;
   return (
     <div className="w-full bg-slate-800 rounded h-3 overflow-hidden">
-      <div className={`${color} h-full transition-all`} style={{ width: `${pct}%` }} />
+      <div
+        className={`${color} h-full transition-all`}
+        style={{ width: `${pct}%` }}
+        role="progressbar"
+        aria-valuemin={0}
+        aria-valuemax={max}
+        aria-valuenow={current}
+      />
     </div>
   );
 }
