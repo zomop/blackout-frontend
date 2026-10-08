@@ -12,7 +12,7 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-white p-8">
-      <div className="flex justify-between items-center mb-8">
+      <header className="flex justify-between items-center mb-8">
         <h1 className="text-2xl font-bold text-emerald-400">BLACKOUT Dashboard</h1>
         <div className="flex gap-2">
           <button
@@ -28,12 +28,12 @@ export default function Dashboard() {
             Log Out
           </button>
         </div>
-      </div>
-      <div className="bg-slate-900 border border-slate-800 rounded-lg p-6">
+      </header>
+      <main className="bg-slate-900 border border-slate-800 rounded-lg p-6">
         <p className="text-slate-400 text-sm">Logged in as</p>
         <p className="text-xl font-semibold">{user?.email}</p>
         <p className="text-slate-500 text-sm mt-1">Role: {user?.role}</p>
-      </div>
+      </main>
     </div>
   );
 }
