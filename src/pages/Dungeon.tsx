@@ -112,7 +112,7 @@ export default function Dungeon() {
       </div>
 
       <div className="max-w-xl mx-auto bg-slate-900 border border-slate-800 rounded-lg p-6">
-        {error && <p className="text-red-400 text-sm mb-4">{error}</p>}
+        {error && <p className="text-red-400 text-sm mb-4" role="alert">{error}</p>}
 
         {combat.status === "NOT_STARTED" && (
           <div className="text-center py-8">
@@ -149,7 +149,7 @@ export default function Dungeon() {
               <HealthBar current={combat.playerHp} max={combat.playerMaxHp} color="bg-emerald-500" />
             </div>
 
-            <div className="bg-slate-950 border border-slate-800 rounded p-3 mb-6 h-40 overflow-y-auto text-sm space-y-1">
+            <div className="bg-slate-950 border border-slate-800 rounded p-3 mb-6 h-40 overflow-y-auto text-sm space-y-1" aria-live="polite" aria-label="Combat log">
               {combat.log.map((line, i) => (
                 <p key={i} className="text-slate-300">
                   {line}
