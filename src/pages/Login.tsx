@@ -27,22 +27,28 @@ export default function Login() {
         className="bg-slate-900 border border-slate-800 rounded-lg p-8 w-full max-w-sm"
       >
         <h1 className="text-2xl font-bold text-emerald-400 mb-6">BLACKOUT</h1>
-        {error && <p className="text-red-400 text-sm mb-4">{error}</p>}
+        {error && <p className="text-red-400 text-sm mb-4" role="alert">{error}</p>}
+        <label htmlFor="login-email" className="sr-only">Email</label>
         <input
+          id="login-email"
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className="w-full mb-3 p-2 rounded bg-slate-800 text-white border border-slate-700"
           required
+          autoComplete="email"
         />
+        <label htmlFor="login-password" className="sr-only">Password</label>
         <input
+          id="login-password"
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           className="w-full mb-4 p-2 rounded bg-slate-800 text-white border border-slate-700"
           required
+          autoComplete="current-password"
         />
         <button
           type="submit"
