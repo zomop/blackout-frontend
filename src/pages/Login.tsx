@@ -6,17 +6,21 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setError("");
+    setSubmitting(true);
     try {
       await login(email, password);
       navigate("/dashboard");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Login failed.");
+    } finally {
+      setSubmitting(false);
     }
   }
 
@@ -52,9 +56,10 @@ export default function Login() {
         />
         <button
           type="submit"
+          disabled={submitting}
           className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-2 rounded"
         >
-          Log In
+          {submitting ? "Signing in..." : "Log In"}
         </button>
         <p className="text-slate-400 text-sm mt-4 text-center">
           No account? <Link to="/register" className="text-emerald-400">Register</Link>
