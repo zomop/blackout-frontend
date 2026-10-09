@@ -1,5 +1,10 @@
 import type { AuthUser } from "../api/auth";
 
+export function readStoredToken(): string | null {
+  const token = localStorage.getItem("token");
+  return token && token.trim() ? token : null;
+}
+
 export function readStoredUser(): AuthUser | null {
   const raw = localStorage.getItem("user");
   if (!raw) return null;

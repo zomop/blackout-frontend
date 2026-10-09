@@ -4,14 +4,14 @@
 import { useState, type ReactNode } from "react";
 import { AuthContext } from "./authContext";
 import { registerRequest, loginRequest, type AuthUser } from "../api/auth";
-import { readStoredUser } from "./sessionStorage";
+import { readStoredToken, readStoredUser } from "./sessionStorage";
 
 
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   // We persist the token in localStorage so refreshing the page
   // doesn't log the user out. We'll improve this later with refresh tokens.
-  const [token, setToken] = useState<string | null>(localStorage.getItem("token"));
+  const [token, setToken] = useState<string | null>(readStoredToken);
   const [user, setUser] = useState<AuthUser | null>(readStoredUser);
 
   function saveSession(newToken: string, newUser: AuthUser) {
