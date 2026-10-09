@@ -6,17 +6,21 @@ export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
   const { register } = useAuth();
   const navigate = useNavigate();
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setError("");
+    setSubmitting(true);
     try {
       await register(email, password);
       navigate("/dashboard");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Registration failed.");
+    } finally {
+      setSubmitting(false);
     }
   }
 
@@ -53,9 +57,10 @@ export default function Register() {
         />
         <button
           type="submit"
+          disabled={submitting}
           className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-2 rounded"
         >
-          Create Account
+          {submitting ? "Creating account..." : "Create Account"}
         </button>
         <p className="text-slate-400 text-sm mt-4 text-center">
           Already have an account? <Link to="/login" className="text-emerald-400">Log In</Link>
