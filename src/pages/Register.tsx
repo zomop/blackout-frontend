@@ -28,6 +28,7 @@ export default function Register() {
     <div className="min-h-screen bg-slate-950 flex items-center justify-center">
       <form
         onSubmit={handleSubmit}
+        aria-busy={submitting}
         className="bg-slate-900 border border-slate-800 rounded-lg p-8 w-full max-w-sm"
       >
         <h1 className="text-2xl font-bold text-emerald-400 mb-6">BLACKOUT</h1>
